@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vault — Your Personal File Storage</title>
+  <link rel="stylesheet" href="Testing No.1.css">
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <div class="logo">
+    <div class="logo-icon">🗄️</div>
+    Vault
+  </div>
+  <div class="header-stats">
+    <div>
+      <span class="stat-val" id="stat-count">0</span>
+      files
+    </div>
+    <div>
+      <span class="stat-val" id="stat-size">0 B</span>
+      stored
+    </div>
+  </div>
+  <div class="header-actions">
+    <button class="btn btn-ghost" onclick="clearAll()">🗑 Clear All</button>
+    <button class="btn btn-primary" onclick="document.getElementById('file-input').click()">
+      ＋ Upload Files
+    </button>
+  </div>
+</header>
+
+<!-- Drop Zone -->
+<div class="drop-zone" id="drop-zone" onclick="document.getElementById('file-input').click()">
+  <span class="drop-icon">📂</span>
+  <div class="drop-title">Drop anything here</div>
+  <div class="drop-sub">
+    Images, videos, documents — <span>any size, any type</span>. They stay right here in your browser.
+  </div>
+  <button class="btn btn-primary" style="pointer-events:none;">Browse Files</button>
+</div>
+
+<input type="file" id="file-input" multiple>
+
+<!-- Upload Progress -->
+<div class="upload-progress" id="upload-progress">
+  <div class="progress-label">
+    <span id="progress-name">Uploading…</span>
+    <span id="progress-pct">0%</span>
+  </div>
+  <div class="progress-bar-track">
+    <div class="progress-bar-fill" id="progress-fill"></div>
+  </div>
+</div>
+
+<!-- Toolbar -->
+<div class="toolbar">
+  <div class="filter-tabs">
+    <button class="tab active" data-filter="all">All</button>
+    <button class="tab" data-filter="image">🖼 Images</button>
+    <button class="tab" data-filter="video">🎬 Videos</button>
+    <button class="tab" data-filter="doc">📄 Docs</button>
+    <button class="tab" data-filter="other">📦 Other</button>
+  </div>
+  <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+    <div class="search-box">
+      <span style="color:var(--muted)">🔍</span>
+      <input type="text" id="search-input" placeholder="Search files…">
+    </div>
+    <select class="sort-select" id="sort-select">
+      <option value="newest">Newest first</option>
+      <option value="oldest">Oldest first</option>
+      <option value="name">Name A–Z</option>
+      <option value="size-desc">Largest first</option>
+      <option value="size-asc">Smallest first</option>
+    </select>
+  </div>
+</div>
+
+<!-- File Grid -->
+<div class="file-grid" id="file-grid">
+  <div class="empty-state visible" id="empty-state">
+    <div class="icon">🗄️</div>
+    <p>Your Vault is empty.<br>Drop some files above to get started.</p>
+  </div>
+</div>
+
+<!-- Bulk action bar -->
+<div class="bulk-bar" id="bulk-bar">
+  <span class="bulk-count" id="bulk-count">0 selected</span>
+  <button class="btn btn-ghost" onclick="downloadSelected()">⬇ Download</button>
+  <button class="btn-danger" onclick="deleteSelected()">🗑 Delete</button>
+  <button class="btn btn-ghost" onclick="clearSelection()">✕ Cancel</button>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <div class="lightbox-inner" onclick="e => e.stopPropagation()">
+    <div class="lightbox-header">
+      <div class="lightbox-title" id="lb-title">filename.jpg</div>
+      <div class="lightbox-actions">
+        <button class="btn btn-primary" id="lb-download" onclick="downloadFile(currentFile)">⬇ Download</button>
+        <button class="close-btn" onclick="closeLightbox()">✕</button>
+      </div>
+    </div>
+    <div class="lightbox-body" id="lb-body"></div>
+    <div class="lightbox-meta" id="lb-meta"></div>
+  </div>
+</div>
+
+<!-- Toast container -->
+<div class="toast-container" id="toast-container"></div>
+
+<script src="Testing No.1.js"></script>
+</body>
+</html>
